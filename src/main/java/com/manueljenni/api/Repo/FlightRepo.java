@@ -12,7 +12,16 @@ import org.springframework.stereotype.Repository;
 public interface FlightRepo extends JpaRepository<Flight, Long> {
 
   @Query(value = """
-      SELECT *
+      SELECT 
+      id as id,
+      origin as origin,
+      origin_airport as originAirport,
+      destination as destination,
+      destination_airport as destinationAirport,
+      distance,
+      duration,
+      active,
+      airline
       FROM flight
       """,
       nativeQuery = true

@@ -15,11 +15,11 @@ public class FlightResponse {
 
   private String origin;
 
-  String origin_airport;
+  String originAirport;
 
   String destination;
 
-  String destination_airport;
+  String destinationAirport;
 
   String airline;
 

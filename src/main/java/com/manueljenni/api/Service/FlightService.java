@@ -22,9 +22,9 @@ public class FlightService {
             FlightResponse flightResponse = FlightResponse
                 .builder()
                 .origin(flightsResult.getOrigin())
-                .origin_airport(flightsResult.getOriginAirport())
+                .originAirport(flightsResult.getOriginAirport())
                 .destination(flightsResult.getDestination())
-                .destination_airport(flightsResult.getDestinationAirport())
+                .destinationAirport(flightsResult.getDestinationAirport())
                 .airline(flightsResult.getAirline())
                 .distance(flightsResult.getDistance())
                 .duration(flightsResult.getDuration())
@@ -34,4 +34,5 @@ public class FlightService {
           })
           .collect(Collectors.toList());
   }
+
 }
