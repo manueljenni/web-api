@@ -34,5 +34,4 @@ public class FlightService {
           })
           .collect(Collectors.toList());
   }
-
 }

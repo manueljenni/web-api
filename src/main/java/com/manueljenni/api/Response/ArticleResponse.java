@@ -1,6 +1,7 @@
 package com.manueljenni.api.Response;
 
 import com.sun.istack.NotNull;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,29 +14,33 @@ import org.springframework.lang.Nullable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FlightResponse {
+public class ArticleResponse {
 
-  @Nullable
-  private String origin;
 
   @NotNull
-  private String originAirport;
-
-  @Nullable
-  private String destination;
+  private Long id;
 
   @NotNull
-  private String destinationAirport;
+  private String title;
+
+  @NotNull
+  private String subtitle;
+
+  @NotNull
+  private String link;
 
   @Nullable
-  private String airline;
+  private String summary;
 
   @Nullable
-  private Long distance;
+  private Date publicationDate;
 
   @Nullable
-  private Long duration;
+  private String content;
 
   @Nullable
-  private Boolean active;
+  private String tags;
+
+  @Nullable
+  private String image;
 }

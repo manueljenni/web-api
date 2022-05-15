@@ -13,6 +13,7 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
 
   @Query(value = """
       SELECT 
+      updated_at AS updatedAt,
       id as id,
       origin as origin,
       origin_airport as originAirport,
@@ -23,6 +24,7 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
       active,
       airline
       FROM flight
+      ORDER BY updatedAt
       """,
       nativeQuery = true
   )
