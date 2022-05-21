@@ -2,6 +2,8 @@ package com.manueljenni.api.Result;
 
 public interface FlightResult {
 
+  Long getId();
+
   String getOrigin();
 
   String getOriginAirport();
@@ -17,6 +19,4 @@ public interface FlightResult {
   Long getDuration();
 
   Boolean getActive();
-
-
 }

@@ -24,9 +24,44 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
       active,
       airline
       FROM flight
-      ORDER BY updatedAt
+      ORDER BY updated_at
       """,
       nativeQuery = true
   )
   List<FlightResult> findAllFlights();
+
+  @Query(value= """
+      SELECT 
+      id,
+      origin as origin,
+      origin_airport as originAirport,
+      destination as destination,
+      destination_airport as destinationAirport,
+      distance,
+      duration,
+      active,
+      airline
+      FROM flight
+      WHERE id = ?1
+      """, nativeQuery= true)
+  FlightResult findFlightById(Long id);
+
+  @Query(value= """
+      SELECT 
+      updated_at AS updatedAt,
+      id as id,
+      origin as origin,
+      origin_airport as originAirport,
+      destination as destination,
+      destination_airport as destinationAirport,
+      distance,
+      duration,
+      active,
+      airline
+      FROM flight
+      WHERE origin_airport = ?1
+        AND destination_airport = ?2
+      ORDER BY updated_at
+      """, nativeQuery = true)
+  List<FlightResult> findFlightsByRoute(String origin_iata, String destination_iata);
 }

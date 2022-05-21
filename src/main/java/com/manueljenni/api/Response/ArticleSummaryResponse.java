@@ -22,7 +22,7 @@ public class ArticleSummaryResponse {
   @NotNull
   private String title;
 
-  @NotNull
+  @Nullable
   private String subtitle;
 
   @NotNull

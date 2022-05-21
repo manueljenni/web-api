@@ -7,9 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
 
   @Id

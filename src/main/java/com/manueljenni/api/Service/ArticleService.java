@@ -1,7 +1,8 @@
 package com.manueljenni.api.Service;
 
+import com.manueljenni.api.Entity.Article;
 import com.manueljenni.api.Repo.ArticleRepo;
-import com.manueljenni.api.Repo.FlightRepo;
+import com.manueljenni.api.Response.ArticleRequest;
 import com.manueljenni.api.Response.ArticleResponse;
 import com.manueljenni.api.Response.ArticleSummaryResponse;
 import com.manueljenni.api.Result.ArticleResult;
@@ -59,37 +60,61 @@ public class ArticleService {
   }
 
   public ArticleResponse getArticleById(Long id) {
-    ArticleResult article = articleRepo.findArticleById(id);
+    try {
+      ArticleResult article = articleRepo.findArticleById(id);
 
-    ArticleResponse articleResponse = ArticleResponse
-        .builder()
-        .id(article.getId())
+      ArticleResponse articleResponse = ArticleResponse
+          .builder()
+          .id(article.getId())
+          .title(article.getTitle())
+          .subtitle(article.getSubtitle())
+          .link(article.getLink())
+          .summary(article.getSummary())
+          .publicationDate(article.getPublicationDate())
+          .content(article.getContent())
+          .tags(article.getTags())
+          .image(article.getImage())
+          .build();
+
+      return articleResponse;
+    } catch (Exception e) {
+      System.out.println("Error while searching for article with id: " + id + "\nException: " + e.toString());
+      return null;
+    }
+  }
+
+  public ArticleSummaryResponse getArticleSummaryById(Long id) {
+    try {
+      ArticleSummaryResult article = articleRepo.findArticleSummaryById(id);
+
+      ArticleSummaryResponse articleResponse = ArticleSummaryResponse
+          .builder()
+          .id(article.getId())
+          .title(article.getTitle())
+          .subtitle(article.getSubtitle())
+          .link(article.getLink())
+          .summary(article.getSummary())
+          .publicationDate(article.getPublicationDate())
+          .build();
+
+      return articleResponse;
+    } catch (Exception e) {
+      System.out.println("Error while searching for article summary with id: " + id + "\nException: " + e.toString());
+      return null;
+    }
+  }
+
+  public void saveArticle(ArticleRequest article) {
+    Article saveArticle = Article.builder()
         .title(article.getTitle())
         .subtitle(article.getSubtitle())
-        .link(article.getLink())
         .summary(article.getSummary())
-        .publicationDate(article.getPublicationDate())
-        .content(article.getContent())
+        .link(article.getLink())
+        .active(article.getActive())
         .tags(article.getTags())
         .image(article.getImage())
         .build();
 
-    return articleResponse;
-  }
-
-  public ArticleSummaryResponse getArticleSummaryById(Long id) {
-    ArticleSummaryResult article = articleRepo.findArticleSummaryById(id);
-
-    ArticleSummaryResponse articleResponse = ArticleSummaryResponse
-        .builder()
-        .id(article.getId())
-        .title(article.getTitle())
-        .subtitle(article.getSubtitle())
-        .link(article.getLink())
-        .summary(article.getSummary())
-        .publicationDate(article.getPublicationDate())
-        .build();
-
-    return articleResponse;
+    articleRepo.save(saveArticle);
   }
 }

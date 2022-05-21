@@ -4,9 +4,15 @@ import java.time.ZonedDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Flight {
 
   @Id
@@ -15,11 +21,11 @@ public class Flight {
 
   private String origin;
 
-  private String origin_airport;
+  private String originAirport;
 
   private String destination;
 
-  private String destination_airport;
+  private String destinationAirport;
 
   private String airline;
 

@@ -23,7 +23,7 @@ public class ArticleResponse {
   @NotNull
   private String title;
 
-  @NotNull
+  @Nullable
   private String subtitle;
 
   @NotNull
