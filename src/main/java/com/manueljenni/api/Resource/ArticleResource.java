@@ -9,6 +9,7 @@ import com.manueljenni.api.Service.ArticleService;
 import com.manueljenni.api.Service.FlightService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,7 @@ public class ArticleResource {
   @Autowired
   ArticleService articleService;
 
+  @CrossOrigin
   @GetMapping("/getAllArticles")
   public List<ArticleResponse> allArticles() {
     List<ArticleResponse> articles =  articleService.getAllArticles();
