@@ -55,6 +55,28 @@ public class ArticleService {
               .summary(articleResult.getSummary())
               .category(articleResult.getCategory())
               .publicationDate(articleResult.getPublicationDate())
+              .image(articleResult.getImage())
+              .build();
+          return articleResponse;
+        })
+        .collect(Collectors.toList());
+  }
+
+  public List<ArticleSummaryResponse> getArticleSummaryById(String category) {
+    List<ArticleSummaryResult> articles = articleRepo.findArticleSummaryByCategory(category);
+
+    return articles.stream()
+        .map(articleResult -> {
+          ArticleSummaryResponse articleResponse = ArticleSummaryResponse
+              .builder()
+              .id(articleResult.getId())
+              .title(articleResult.getTitle())
+              .subtitle(articleResult.getSubtitle())
+              .link(articleResult.getLink())
+              .summary(articleResult.getSummary())
+              .category(articleResult.getCategory())
+              .publicationDate(articleResult.getPublicationDate())
+              .image(articleResult.getImage())
               .build();
           return articleResponse;
         })
@@ -99,6 +121,7 @@ public class ArticleService {
           .summary(article.getSummary())
           .publicationDate(article.getPublicationDate())
           .category(article.getCategory())
+          .image(article.getImage())
           .build();
 
       return articleResponse;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/articles")
 public class ArticleResource {
 
@@ -23,7 +24,6 @@ public class ArticleResource {
   @Autowired
   ArticleService articleService;
 
-  @CrossOrigin
   @GetMapping("/getAllArticles")
   public List<ArticleResponse> allArticles() {
     List<ArticleResponse> articles =  articleService.getAllArticles();
@@ -33,6 +33,12 @@ public class ArticleResource {
   @GetMapping("/getAllArticlesSummary")
   public List<ArticleSummaryResponse> allArticlesSummary() {
     List<ArticleSummaryResponse> articles =  articleService.getAllArticlesSummary();
+    return articles;
+  }
+
+  @GetMapping("/getArticleSummaryByCategory")
+  public List<ArticleSummaryResponse> articleSummaryByCategory(String category) {
+    List<ArticleSummaryResponse> articles =  articleService.getArticleSummaryById(category);
     return articles;
   }
 
