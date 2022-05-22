@@ -32,5 +32,8 @@ public class ArticleSummaryResponse {
   private String summary;
 
   @Nullable
+  private String category;
+
+  @Nullable
   private Date publicationDate;
 }

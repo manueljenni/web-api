@@ -33,6 +33,7 @@ public class ArticleService {
               .publicationDate(articleResult.getPublicationDate())
               .content(articleResult.getContent())
               .tags(articleResult.getTags())
+              .category(articleResult.getCategory())
               .image(articleResult.getImage())
               .build();
           return articleResponse;
@@ -52,6 +53,7 @@ public class ArticleService {
               .subtitle(articleResult.getSubtitle())
               .link(articleResult.getLink())
               .summary(articleResult.getSummary())
+              .category(articleResult.getCategory())
               .publicationDate(articleResult.getPublicationDate())
               .build();
           return articleResponse;
@@ -73,6 +75,7 @@ public class ArticleService {
           .publicationDate(article.getPublicationDate())
           .content(article.getContent())
           .tags(article.getTags())
+          .category(article.getCategory())
           .image(article.getImage())
           .build();
 
@@ -95,6 +98,7 @@ public class ArticleService {
           .link(article.getLink())
           .summary(article.getSummary())
           .publicationDate(article.getPublicationDate())
+          .category(article.getCategory())
           .build();
 
       return articleResponse;
@@ -113,6 +117,7 @@ public class ArticleService {
         .active(article.getActive())
         .tags(article.getTags())
         .image(article.getImage())
+        .category(article.getCategory())
         .build();
 
     articleRepo.save(saveArticle);
