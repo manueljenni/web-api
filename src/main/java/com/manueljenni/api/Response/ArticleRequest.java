@@ -22,5 +22,6 @@ public class ArticleRequest {
   private String content;
   private String tags;
   private String image;
+  private String category;
   private Boolean active = true;
 }

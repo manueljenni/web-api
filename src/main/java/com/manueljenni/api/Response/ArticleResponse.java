@@ -39,6 +39,9 @@ public class ArticleResponse {
   private String content;
 
   @Nullable
+  private String category;
+
+  @Nullable
   private String tags;
 
   @Nullable

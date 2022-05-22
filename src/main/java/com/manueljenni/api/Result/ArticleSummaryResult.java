@@ -14,5 +14,7 @@ public interface ArticleSummaryResult {
 
   String getSummary();
 
+  String getCategory();
+
   Date getPublicationDate();
 }

@@ -20,6 +20,8 @@ public interface ArticleResult {
 
   String getTags();
 
+  String getCategory();
+
   String getImage();
 
   Boolean getActive();

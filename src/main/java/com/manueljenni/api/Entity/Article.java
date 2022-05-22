@@ -38,6 +38,8 @@ public class Article {
 
   private String tags;
 
+  private String category;
+
   private String image;
 
   private Boolean active;
