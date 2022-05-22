@@ -19,4 +19,5 @@ public interface ArticleSummaryResult {
   Date getPublicationDate();
 
   String getImage();
+
 }

@@ -17,13 +17,13 @@ public interface ArticleRepo extends JpaRepository<Article, Long> {
   )
   List<ArticleResult> findAllArticles();
 
-  @Query(value = "SELECT * " +
+  @Query(value = "SELECT id, title, subtitle, summary, link, publication_date as publicationDate, image, category " +
       "FROM article WHERE active = 1 ORDER BY publication_date DESC",
       nativeQuery = true
   )
   List<ArticleSummaryResult> findAllArticlesSummary();
 
-  @Query(value = "SELECT id, title, subtitle, summary, link, publication_date as publicationDate, image " +
+  @Query(value = "SELECT id, title, subtitle, summary, link, publication_date as publicationDate, image, category " +
       "FROM article WHERE active = 1 AND category = ? ORDER BY publication_date DESC",
       nativeQuery = true
   )
@@ -34,7 +34,7 @@ public interface ArticleRepo extends JpaRepository<Article, Long> {
   )
   ArticleResult findArticleById(Long id);
 
-  @Query(value = "SELECT id, title, subtitle, summary, link, publication_date AS publicationDate, image FROM article"
+  @Query(value = "SELECT id, title, subtitle, summary, link, publication_date AS publicationDate, image, category FROM article"
       + "WHERE id = ? ORDER BY publication_date DESC",
       nativeQuery = true
   )
