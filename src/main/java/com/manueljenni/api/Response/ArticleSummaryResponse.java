@@ -2,7 +2,6 @@ package com.manueljenni.api.Response;
 
 import com.sun.istack.NotNull;
 import java.util.Date;
-import javax.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +37,6 @@ public class ArticleSummaryResponse {
   @Nullable
   private Date publicationDate;
 
-  @Null
+  @Nullable
   private String image;
 }

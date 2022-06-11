@@ -1,11 +1,7 @@
 package com.manueljenni.api.Resource;
 
-import com.manueljenni.api.Response.ArticleRequest;
-import com.manueljenni.api.Response.ArticleResponse;
-import com.manueljenni.api.Response.ArticleSummaryResponse;
 import com.manueljenni.api.Response.FlightRequest;
 import com.manueljenni.api.Response.FlightResponse;
-import com.manueljenni.api.Service.ArticleService;
 import com.manueljenni.api.Service.FlightService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

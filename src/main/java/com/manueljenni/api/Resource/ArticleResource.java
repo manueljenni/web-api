@@ -1,15 +1,17 @@
 package com.manueljenni.api.Resource;
 
-import com.manueljenni.api.Entity.Article;
 import com.manueljenni.api.Response.ArticleRequest;
 import com.manueljenni.api.Response.ArticleResponse;
 import com.manueljenni.api.Response.ArticleSummaryResponse;
-import com.manueljenni.api.Response.FlightResponse;
 import com.manueljenni.api.Service.ArticleService;
-import com.manueljenni.api.Service.FlightService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin

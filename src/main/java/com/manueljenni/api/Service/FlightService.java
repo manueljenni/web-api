@@ -1,18 +1,18 @@
 package com.manueljenni.api.Service;
 
-import com.manueljenni.api.Entity.Article;
 import com.manueljenni.api.Entity.Flight;
 import com.manueljenni.api.Repo.FlightRepo;
-import com.manueljenni.api.Response.ArticleRequest;
 import com.manueljenni.api.Response.FlightRequest;
 import com.manueljenni.api.Response.FlightResponse;
 import com.manueljenni.api.Result.FlightResult;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
+@Qualifier("flightService")
 public class FlightService {
 
   @Autowired
