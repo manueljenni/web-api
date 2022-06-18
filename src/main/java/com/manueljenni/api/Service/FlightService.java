@@ -17,7 +17,7 @@ public class FlightService {
 
   @Autowired
   FlightRepo flightRepo;
-
+/*
   public List<FlightResponse> getAllFlights() {
       List<FlightResult> flights = flightRepo.findAllFlights();
 
@@ -90,4 +90,6 @@ public class FlightService {
         .active(flight.getActive())
         .build();
   }
+
+ */
 }

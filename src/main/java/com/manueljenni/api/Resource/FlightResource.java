@@ -17,7 +17,7 @@ public class FlightResource {
 
   @Autowired
   FlightService flightService;
-
+  /*
   @GetMapping("/getAllFlights")
   public List<FlightResponse> allFlights() {
     List<FlightResponse> flights =  flightService.getAllFlights();
@@ -43,4 +43,6 @@ public class FlightResource {
     flightService.saveFlight(flight);
     System.out.println("Flight saved!");
   }
+
+   */
 }
