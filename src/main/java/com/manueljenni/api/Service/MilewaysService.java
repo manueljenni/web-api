@@ -4,11 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.manueljenni.api.Entity.Airline;
 import com.manueljenni.api.Entity.Flight;
 import com.manueljenni.api.Entity.Place;
+import com.manueljenni.api.Repo.AirlineRepo;
 import com.manueljenni.api.Repo.ArticleRepo;
 import com.manueljenni.api.Repo.FlightRepo;
 import com.manueljenni.api.Repo.PlaceRepo;
+import com.manueljenni.api.Result.AirlineResult;
 import com.manueljenni.api.Result.PlaceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +36,9 @@ public class MilewaysService {
 
   @Autowired
   FlightRepo flightRepo;
+
+  @Autowired
+  AirlineRepo airlineRepo;
 
   final String accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxOTg0IiwiaWF0IjoxNjU0OTc5NTA2LCJleHAiOjQ4MTA2NTMxMDZ9.TvgmJiTAIJa9clmuxxtQ2ny4yRuVCVhh9o8twzSxIdDYUsJ5C0w-j5Enqi_sFFPbWY-bVIpZC534dV5lBm4Hvg";
 
@@ -111,12 +117,25 @@ public class MilewaysService {
         arrivalAirportId = placeRepo.getAirportIdByIata(arrivalAirport.get("iata").getAsString()).getId();
       }
 
+      JsonObject airline = flight.get("airline").getAsJsonObject();
+      AirlineResult airlineResult = airlineRepo.getAirlineByCode(airline.get("fs").getAsString());
+      Long airlineId;
+      if (airlineResult != null) {
+        airlineId = airlineResult.getId();
+      } else {
+        airlineRepo.save(Airline.builder()
+                .name(airline.get("name").getAsString())
+                .code(airline.get("fs").getAsString())
+                .build());
+
+        airlineId = airlineRepo.getAirlineByCode(airline.get("fs").getAsString()).getId();
+      }
+
       // Save flight
       flightRepo.save(Flight.builder()
               .departure_id(departureAirportId)
               .arrival_id(arrivalAirportId)
-              // TODO: Save airlines
-              .airline_id(1L)
+              .airline_id(airlineId)
               .departure_time(Instant.parse(flight.get("departureTime").getAsString())
                       .atZone(ZoneId.of(departureAirport.get("timeZoneRegionName").getAsString())))
               .arrival_time(Instant.parse(flight.get("arrivalTime").getAsString())
@@ -126,10 +145,8 @@ public class MilewaysService {
               .mileways_url(flight.get("shareUrl").getAsString())
               .active(true)
               .build());
-
-
     });
 
-    return "hi";
+    return "Success";
   }
 }
