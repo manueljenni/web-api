@@ -33,6 +33,8 @@ public class Place {
 
     private String country_code;
 
+    private String timeZoneName;
+
     private Float latitude;
 
     private Float longitude;

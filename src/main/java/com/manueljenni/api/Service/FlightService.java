@@ -2,9 +2,13 @@ package com.manueljenni.api.Service;
 
 import com.manueljenni.api.Entity.Flight;
 import com.manueljenni.api.Repo.FlightRepo;
+import com.manueljenni.api.Response.AirlineResponse;
 import com.manueljenni.api.Response.FlightRequest;
 import com.manueljenni.api.Response.FlightResponse;
+import com.manueljenni.api.Response.PlaceResponse;
 import com.manueljenni.api.Result.FlightResult;
+
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,51 @@ public class FlightService {
 
   @Autowired
   FlightRepo flightRepo;
+
+  public List<FlightResponse> getAllFlights() {
+    List<FlightResult> flights = flightRepo.findAllFlights();
+
+    return flights.stream()
+            .map(flightResult -> {
+              FlightResponse flightResponse = FlightResponse
+                .builder()
+                .departure(PlaceResponse.builder()
+                  .type(1)
+                  .iata(flightResult.getDepartureIata())
+                  .name(flightResult.getDepartureName())
+                  .city(flightResult.getDepartureCity())
+                  .countryCode(flightResult.getDepartureCountryCode())
+                  .countryName(flightResult.getDepartureCountryName())
+                  .latitude(flightResult.getDepartureLatitude())
+                  .longitude(flightResult.getArrivalLongitude())
+                  .build())
+                .arrival(PlaceResponse.builder()
+                        .type(1)
+                        .iata(flightResult.getArrivalIata())
+                        .name(flightResult.getArrivalName())
+                        .city(flightResult.getArrivalCity())
+                        .countryCode(flightResult.getArrivalCountryCode())
+                        .countryName(flightResult.getArrivalCountryName())
+                        .latitude(flightResult.getDepartureLatitude())
+                        .longitude(flightResult.getArrivalLongitude())
+                        .build())
+                      .airline(AirlineResponse.builder()
+                        .code(flightResult.getAirlineCode())
+                        .name(flightResult.getAirlineName())
+                        .build())
+                //.departureTime(ZonedDateTime.parse(flightResult.getDepartureTime()))
+                //.arrivalTime(ZonedDateTime.parse(flightResult.getArrivalTime()))
+                .miles(flightResult.getMiles())
+                .duration(flightResult.getDuration())
+                .milewaysUrl(flightResult.getMilewaysUrl())
+                .build();
+
+              System.out.println(flightResult.getDepartureTime());
+
+              return flightResponse;
+            })
+            .collect(Collectors.toList());
+  }
 /*
   public List<FlightResponse> getAllFlights() {
       List<FlightResult> flights = flightRepo.findAllFlights();
@@ -77,19 +126,5 @@ public class FlightService {
         })
         .collect(Collectors.toList());
   }
-
-  public void saveFlight(FlightRequest flight) {
-    Flight saveFlight = Flight.builder()
-        .origin(flight.getOrigin())
-        .originAirport(flight.getOriginAirport())
-        .destination(flight.getDestination())
-        .destinationAirport(flight.getDestinationAirport())
-        .airline(flight.getAirline())
-        .distance(flight.getDistance())
-        .duration(flight.getDuration())
-        .active(flight.getActive())
-        .build();
-  }
-
  */
 }

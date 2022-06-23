@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 
+import java.time.ZonedDateTime;
+
 @Builder
 @Getter
 @Setter
@@ -15,27 +17,27 @@ import org.springframework.lang.Nullable;
 @NoArgsConstructor
 public class FlightResponse {
 
-  @Nullable
-  private String origin;
+  @NotNull
+  private PlaceResponse departure;
 
   @NotNull
-  private String originAirport;
+  private PlaceResponse arrival;
 
   @Nullable
-  private String destination;
-
-  @NotNull
-  private String destinationAirport;
+  private ZonedDateTime departureTime;
 
   @Nullable
-  private String airline;
+  private ZonedDateTime arrivalTime;
 
   @Nullable
-  private Long distance;
+  private AirlineResponse airline;
+
+  @Nullable
+  private Long miles;
 
   @Nullable
   private Long duration;
 
   @Nullable
-  private Boolean active;
+  private String milewaysUrl;
 }

@@ -17,13 +17,13 @@ public class FlightResource {
 
   @Autowired
   FlightService flightService;
-  /*
+
   @GetMapping("/getAllFlights")
   public List<FlightResponse> allFlights() {
     List<FlightResponse> flights =  flightService.getAllFlights();
     return flights;
   }
-
+  /*
   @GetMapping("/getFlightById")
   public FlightResponse flightById(Long id) {
     FlightResponse flight =  flightService.getFlightById(id);

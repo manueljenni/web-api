@@ -1,22 +1,35 @@
 package com.manueljenni.api.Result;
 
+import java.time.ZonedDateTime;
+
 public interface FlightResult {
 
   Long getId();
 
-  String getOrigin();
+  String getDepartureIata();
+  String getDepartureName();
+  String getDepartureCity();
+  String getDepartureCountryCode();
+  String getDepartureCountryName();
+  Float getDepartureLatitude();
+  String getDepartureLongitude();
 
-  String getOriginAirport();
+  String getArrivalIata();
+  String getArrivalName();
+  String getArrivalCity();
+  String getArrivalCountryCode();
+  String getArrivalCountryName();
+  String getArrivalLatitude();
+  Float getArrivalLongitude();
 
-  String getDestination();
+  String getAirlineCode();
+  String getAirlineName();
 
-  String getDestinationAirport();
+  String getDepartureTime();
+  String getArrivalTime();
 
-  String getAirline();
-
-  Long getDistance();
-
+  Long getMiles();
   Long getDuration();
 
-  Boolean getActive();
+  String getMilewaysUrl();
 }

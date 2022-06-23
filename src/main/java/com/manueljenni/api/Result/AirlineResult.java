@@ -5,5 +5,7 @@ public interface AirlineResult {
 
   Long getId();
 
+  String getName();
+
   String getCode();
 }

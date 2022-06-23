@@ -8,7 +8,6 @@ import com.manueljenni.api.Entity.Airline;
 import com.manueljenni.api.Entity.Flight;
 import com.manueljenni.api.Entity.Place;
 import com.manueljenni.api.Repo.AirlineRepo;
-import com.manueljenni.api.Repo.ArticleRepo;
 import com.manueljenni.api.Repo.FlightRepo;
 import com.manueljenni.api.Repo.PlaceRepo;
 import com.manueljenni.api.Result.AirlineResult;
@@ -20,11 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -43,6 +39,9 @@ public class MilewaysService {
   final String accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxOTg0IiwiaWF0IjoxNjU0OTc5NTA2LCJleHAiOjQ4MTA2NTMxMDZ9.TvgmJiTAIJa9clmuxxtQ2ny4yRuVCVhh9o8twzSxIdDYUsJ5C0w-j5Enqi_sFFPbWY-bVIpZC534dV5lBm4Hvg";
 
   public String updateAllFlights() {
+
+    // Delete flight repo
+    flightRepo.deleteAll();
 
     final String url = "https://prod.mileways-flieger.xyz:443/api/v1/trips";
 
@@ -64,6 +63,7 @@ public class MilewaysService {
     JsonObject apiResponse = gson.fromJson((String) responseEntity.getBody(), JsonObject.class);
     JsonArray trips = apiResponse.getAsJsonArray("results");
 
+    AtomicInteger addedFlightsCount = new AtomicInteger();
     trips.forEach(e -> {
 
       JsonArray trip = e.getAsJsonObject().get("flights").getAsJsonArray();
@@ -89,6 +89,7 @@ public class MilewaysService {
                 .country_code(departureAirport.get("countryCode").getAsString())
                 .latitude(departureAirport.get("latitude").getAsFloat())
                 .longitude(departureAirport.get("longitude").getAsFloat())
+                .timeZoneName(departureAirport.get("timeZoneRegionName").getAsString())
                 .active(true)
                 .build());
 
@@ -111,6 +112,7 @@ public class MilewaysService {
                 .country_code(arrivalAirport.get("countryCode").getAsString())
                 .latitude(arrivalAirport.get("latitude").getAsFloat())
                 .longitude(arrivalAirport.get("longitude").getAsFloat())
+                .timeZoneName(arrivalAirport.get("timeZoneRegionName").getAsString())
                 .active(true)
                 .build());
 
@@ -145,8 +147,9 @@ public class MilewaysService {
               .mileways_url(flight.get("shareUrl").getAsString())
               .active(true)
               .build());
+      addedFlightsCount.getAndIncrement();
     });
 
-    return "Success";
+    return "Added " + addedFlightsCount + " flights.";
   }
 }
