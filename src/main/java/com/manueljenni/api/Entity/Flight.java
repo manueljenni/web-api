@@ -20,6 +20,8 @@ public class Flight {
   @GeneratedValue
   private Long id;
 
+  private Long flight_number;
+
   private Long departure_id;
 
   private Long arrival_id;

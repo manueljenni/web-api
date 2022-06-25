@@ -1,6 +1,7 @@
 package com.manueljenni.api.Response;
 
 import com.sun.istack.NotNull;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,11 +24,14 @@ public class FlightResponse {
   @NotNull
   private PlaceResponse arrival;
 
-  @Nullable
-  private ZonedDateTime departureTime;
+  @NotNull
+  private Long flightNumber;
 
   @Nullable
-  private ZonedDateTime arrivalTime;
+  private LocalDateTime departureTime;
+
+  @Nullable
+  private LocalDateTime arrivalTime;
 
   @Nullable
   private AirlineResponse airline;

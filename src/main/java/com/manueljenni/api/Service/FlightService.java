@@ -53,18 +53,105 @@ public class FlightService {
                         .code(flightResult.getAirlineCode())
                         .name(flightResult.getAirlineName())
                         .build())
-                //.departureTime(ZonedDateTime.parse(flightResult.getDepartureTime()))
-                //.arrivalTime(ZonedDateTime.parse(flightResult.getArrivalTime()))
+                .departureTime(flightResult.getDepartureTime())
+                .arrivalTime(flightResult.getArrivalTime())
+                .flightNumber(flightResult.getFlightNumber())
                 .miles(flightResult.getMiles())
                 .duration(flightResult.getDuration())
                 .milewaysUrl(flightResult.getMilewaysUrl())
                 .build();
 
-              System.out.println(flightResult.getDepartureTime());
-
               return flightResponse;
             })
             .collect(Collectors.toList());
+  }
+
+  public List<FlightResponse> getAllPastFlights() {
+    List<FlightResult> flights = flightRepo.findAllPastFlights();
+
+    return flights.stream()
+        .map(flightResult -> {
+          FlightResponse flightResponse = FlightResponse
+              .builder()
+              .departure(PlaceResponse.builder()
+                  .type(1)
+                  .iata(flightResult.getDepartureIata())
+                  .name(flightResult.getDepartureName())
+                  .city(flightResult.getDepartureCity())
+                  .countryCode(flightResult.getDepartureCountryCode())
+                  .countryName(flightResult.getDepartureCountryName())
+                  .latitude(flightResult.getDepartureLatitude())
+                  .longitude(flightResult.getArrivalLongitude())
+                  .build())
+              .arrival(PlaceResponse.builder()
+                  .type(1)
+                  .iata(flightResult.getArrivalIata())
+                  .name(flightResult.getArrivalName())
+                  .city(flightResult.getArrivalCity())
+                  .countryCode(flightResult.getArrivalCountryCode())
+                  .countryName(flightResult.getArrivalCountryName())
+                  .latitude(flightResult.getDepartureLatitude())
+                  .longitude(flightResult.getArrivalLongitude())
+                  .build())
+              .airline(AirlineResponse.builder()
+                  .code(flightResult.getAirlineCode())
+                  .name(flightResult.getAirlineName())
+                  .build())
+              .departureTime(flightResult.getDepartureTime())
+              .arrivalTime(flightResult.getArrivalTime())
+              .flightNumber(flightResult.getFlightNumber())
+              .miles(flightResult.getMiles())
+              .duration(flightResult.getDuration())
+              .milewaysUrl(flightResult.getMilewaysUrl())
+              .build();
+
+          return flightResponse;
+        })
+        .collect(Collectors.toList());
+  }
+
+  public List<FlightResponse> getAllUpcomingFlights() {
+    List<FlightResult> flights = flightRepo.findAllUpcomingFlights();
+
+    return flights.stream()
+        .map(flightResult -> {
+          FlightResponse flightResponse = FlightResponse
+              .builder()
+              .departure(PlaceResponse.builder()
+                  .type(1)
+                  .iata(flightResult.getDepartureIata())
+                  .name(flightResult.getDepartureName())
+                  .city(flightResult.getDepartureCity())
+                  .countryCode(flightResult.getDepartureCountryCode())
+                  .countryName(flightResult.getDepartureCountryName())
+                  .latitude(flightResult.getDepartureLatitude())
+                  .longitude(flightResult.getArrivalLongitude())
+                  .build())
+              .arrival(PlaceResponse.builder()
+                  .type(1)
+                  .iata(flightResult.getArrivalIata())
+                  .name(flightResult.getArrivalName())
+                  .city(flightResult.getArrivalCity())
+                  .countryCode(flightResult.getArrivalCountryCode())
+                  .countryName(flightResult.getArrivalCountryName())
+                  .latitude(flightResult.getDepartureLatitude())
+                  .longitude(flightResult.getArrivalLongitude())
+                  .build())
+              .airline(AirlineResponse.builder()
+                  .code(flightResult.getAirlineCode())
+                  .name(flightResult.getAirlineName())
+                  .build())
+              .departureTime(flightResult.getDepartureTime())
+              .arrivalTime(flightResult.getArrivalTime())
+              .flightNumber(flightResult.getFlightNumber())
+              .miles(flightResult.getMiles())
+              .duration(flightResult.getDuration())
+              .milewaysUrl(flightResult.getMilewaysUrl())
+              .build();
+
+          return flightResponse;
+        })
+        .collect(Collectors.toList());
   }
 /*
   public List<FlightResponse> getAllFlights() {

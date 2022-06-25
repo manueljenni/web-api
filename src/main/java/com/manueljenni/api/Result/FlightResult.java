@@ -1,10 +1,11 @@
 package com.manueljenni.api.Result;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 public interface FlightResult {
 
   Long getId();
+  Long getFlightNumber();
 
   String getDepartureIata();
   String getDepartureName();
@@ -25,8 +26,8 @@ public interface FlightResult {
   String getAirlineCode();
   String getAirlineName();
 
-  String getDepartureTime();
-  String getArrivalTime();
+  LocalDateTime getDepartureTime();
+  LocalDateTime getArrivalTime();
 
   Long getMiles();
   Long getDuration();

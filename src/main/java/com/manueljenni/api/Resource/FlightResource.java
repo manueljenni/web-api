@@ -1,17 +1,16 @@
 package com.manueljenni.api.Resource;
 
-import com.manueljenni.api.Response.FlightRequest;
 import com.manueljenni.api.Response.FlightResponse;
 import com.manueljenni.api.Service.FlightService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/flights")
 public class FlightResource {
 
@@ -23,6 +22,19 @@ public class FlightResource {
     List<FlightResponse> flights =  flightService.getAllFlights();
     return flights;
   }
+
+  @GetMapping("/getAllPastFlights")
+  public List<FlightResponse> allPastFlights() {
+    List<FlightResponse> flights =  flightService.getAllPastFlights();
+    return flights;
+  }
+
+  @GetMapping("/getAllUpcomingFlights")
+  public List<FlightResponse> allUpcomingFlights() {
+    List<FlightResponse> flights =  flightService.getAllUpcomingFlights();
+    return flights;
+  }
+
   /*
   @GetMapping("/getFlightById")
   public FlightResponse flightById(Long id) {

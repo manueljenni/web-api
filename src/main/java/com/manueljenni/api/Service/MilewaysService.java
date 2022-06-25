@@ -135,6 +135,7 @@ public class MilewaysService {
 
       // Save flight
       flightRepo.save(Flight.builder()
+              .flight_number(flight.get("flightNumber").getAsLong())
               .departure_id(departureAirportId)
               .arrival_id(arrivalAirportId)
               .airline_id(airlineId)
@@ -147,6 +148,7 @@ public class MilewaysService {
               .mileways_url(flight.get("shareUrl").getAsString())
               .active(true)
               .build());
+
       addedFlightsCount.getAndIncrement();
     });
 
