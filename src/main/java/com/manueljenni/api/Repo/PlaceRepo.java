@@ -10,22 +10,20 @@ import java.util.Optional;
 
 public interface PlaceRepo extends JpaRepository<Place, Long> {
 
-    @Query(value = """
-            SELECT
-            id, 
-            type,
-            iata,
-            name,
-            city,
-            country_name,
-            country_code,
-            latitude,
-            longitude
-            FROM place            
-            WHERE iata = :iata
-              AND type = 1
-              AND active = TRUE
-            LIMIT 1
-            """, nativeQuery = true)
+    @Query(value = 	"SELECT" +
+        "            id, " +
+        "            type," +
+        "            iata," +
+        "            name," +
+        "            city," +
+        "            country_name," +
+        "            country_code," +
+        "            latitude," +
+        "            longitude" +
+        "            FROM place            " +
+        "            WHERE iata = :iata" +
+        "              AND type = 1" +
+        "              AND active = TRUE" +
+        "            LIMIT 1", nativeQuery = true)
     PlaceResult getAirportIdByIata(String iata);
 }

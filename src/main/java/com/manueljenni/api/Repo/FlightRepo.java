@@ -12,119 +12,114 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FlightRepo extends JpaRepository<Flight, Long> {
 
-  @Query(value = """
-    SELECT
-    flight.id AS id,
-    flight.flight_number as flightNumber,
-    departure.iata AS departureIata,
-    departure.name AS departureName,
-    departure.city AS departureCity,
-    departure.country_code AS departureCountryCode,
-    departure.country_name AS departureCountryName,
-    departure.latitude AS departureLatitude,
-    departure.longitude AS departureLongitude,
-    arrival.iata AS arrivalIata,
-    arrival.name AS arrivalName,
-    arrival.city AS arrivalCity,
-    arrival.country_code AS arrivalCountryCode,
-    arrival.country_name AS arrivalCountryName,
-    arrival.latitude AS arrivalLatitude,
-    arrival.longitude AS arrivalLongitude,
-    airline.code AS airlineCode,
-    airline.name AS airlineName,
-    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime,
-    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime,
-    miles AS miles,
-    duration AS duration,
-    mileways_url AS milewaysUrl
-    FROM flight
-      LEFT JOIN place as departure
-        ON departure.id = flight.departure_id
-      LEFT JOIN place as arrival
-      ON arrival.id = flight.arrival_id
-      LEFT JOIN airline AS airline
-        ON airline.id = flight.airline_id
-    WHERE flight.active = TRUE
-    ORDER BY departureTime DESC
-    """, nativeQuery = true)
+  @Query(value = "SELECT" +
+      "    flight.id AS id," +
+      "    flight.flight_number as flightNumber," +
+      "    departure.iata AS departureIata," +
+      "    departure.name AS departureName," +
+      "    departure.city AS departureCity," +
+      "    departure.country_code AS departureCountryCode," +
+      "    departure.country_name AS departureCountryName," +
+      "    departure.latitude AS departureLatitude," +
+      "    departure.longitude AS departureLongitude," +
+      "    arrival.iata AS arrivalIata," +
+      "    arrival.name AS arrivalName," +
+      "    arrival.city AS arrivalCity," +
+      "    arrival.country_code AS arrivalCountryCode," +
+      "    arrival.country_name AS arrivalCountryName," +
+      "    arrival.latitude AS arrivalLatitude," +
+      "    arrival.longitude AS arrivalLongitude," +
+      "    airline.code AS airlineCode," +
+      "    airline.name AS airlineName," +
+      "    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime," +
+      "    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime," +
+      "    miles AS miles," +
+      "    duration AS duration," +
+      "    mileways_url AS milewaysUrl" +
+      "    FROM flight" +
+      "      LEFT JOIN place as departure" +
+      "        ON departure.id = flight.departure_id" +
+      "      LEFT JOIN place as arrival" +
+      "      ON arrival.id = flight.arrival_id" +
+      "      LEFT JOIN airline AS airline" +
+      "        ON airline.id = flight.airline_id" +
+      "    WHERE flight.active = TRUE" +
+      "    ORDER BY departureTime DESC", nativeQuery = true)
   List<FlightResult> findAllFlights();
 
-  @Query(value = """
-    SELECT
-    flight.id AS id,
-    flight.flight_number as flightNumber,
-    departure.iata AS departureIata,
-    departure.name AS departureName,
-    departure.city AS departureCity,
-    departure.country_code AS departureCountryCode,
-    departure.country_name AS departureCountryName,
-    departure.latitude AS departureLatitude,
-    departure.longitude AS departureLongitude,
-    arrival.iata AS arrivalIata,
-    arrival.name AS arrivalName,
-    arrival.city AS arrivalCity,
-    arrival.country_code AS arrivalCountryCode,
-    arrival.country_name AS arrivalCountryName,
-    arrival.latitude AS arrivalLatitude,
-    arrival.longitude AS arrivalLongitude,
-    airline.code AS airlineCode,
-    airline.name AS airlineName,
-    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime,
-    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime,
-    miles AS miles,
-    duration AS duration,
-    mileways_url AS milewaysUrl
-    FROM flight
-      LEFT JOIN place as departure
-        ON departure.id = flight.departure_id
-      LEFT JOIN place as arrival
-      ON arrival.id = flight.arrival_id
-      LEFT JOIN airline AS airline
-        ON airline.id = flight.airline_id
-    WHERE flight.active = TRUE
-      AND CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) < CURDATE()
-    ORDER BY departureTime DESC
-    """, nativeQuery = true)
+  @Query(value = 	"SELECT" +
+      "    flight.id AS id," +
+      "    flight.flight_number as flightNumber," +
+      "    departure.iata AS departureIata," +
+      "    departure.name AS departureName," +
+      "    departure.city AS departureCity," +
+      "    departure.country_code AS departureCountryCode," +
+      "    departure.country_name AS departureCountryName," +
+      "    departure.latitude AS departureLatitude," +
+      "    departure.longitude AS departureLongitude," +
+      "    arrival.iata AS arrivalIata," +
+      "    arrival.name AS arrivalName," +
+      "    arrival.city AS arrivalCity," +
+      "    arrival.country_code AS arrivalCountryCode," +
+      "    arrival.country_name AS arrivalCountryName," +
+      "    arrival.latitude AS arrivalLatitude," +
+      "    arrival.longitude AS arrivalLongitude," +
+      "    airline.code AS airlineCode," +
+      "    airline.name AS airlineName," +
+      "    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime," +
+      "    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime," +
+      "    miles AS miles," +
+      "    duration AS duration," +
+      "    mileways_url AS milewaysUrl" +
+      "    FROM flight" +
+      "      LEFT JOIN place as departure" +
+      "        ON departure.id = flight.departure_id" +
+      "      LEFT JOIN place as arrival" +
+      "      ON arrival.id = flight.arrival_id" +
+      "      LEFT JOIN airline AS airline" +
+      "        ON airline.id = flight.airline_id" +
+      "    WHERE flight.active = TRUE" +
+      "      AND CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) < CURDATE()" +
+      "    ORDER BY departureTime DESC", nativeQuery = true)
   List<FlightResult> findAllPastFlights();
 
-  @Query(value = """
-    SELECT
-    flight.id AS id,
-    flight.flight_number as flightNumber,
-    departure.iata AS departureIata,
-    departure.name AS departureName,
-    departure.city AS departureCity,
-    departure.country_code AS departureCountryCode,
-    departure.country_name AS departureCountryName,
-    departure.latitude AS departureLatitude,
-    departure.longitude AS departureLongitude,
-    arrival.iata AS arrivalIata,
-    arrival.name AS arrivalName,
-    arrival.city AS arrivalCity,
-    arrival.country_code AS arrivalCountryCode,
-    arrival.country_name AS arrivalCountryName,
-    arrival.latitude AS arrivalLatitude,
-    arrival.longitude AS arrivalLongitude,
-    airline.code AS airlineCode,
-    airline.name AS airlineName,
-    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime,
-    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime,
-    miles AS miles,
-    duration AS duration,
-    mileways_url AS milewaysUrl
-    FROM flight
-      LEFT JOIN place as departure
-        ON departure.id = flight.departure_id
-      LEFT JOIN place as arrival
-      ON arrival.id = flight.arrival_id
-      LEFT JOIN airline AS airline
-        ON airline.id = flight.airline_id
-    WHERE flight.active = TRUE
-      AND CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) > CURDATE()
-    ORDER BY departureTime ASC
-    """, nativeQuery = true)
+  @Query(value = 	"SELECT" +
+      "    flight.id AS id," +
+      "    flight.flight_number as flightNumber," +
+      "    departure.iata AS departureIata," +
+      "    departure.name AS departureName," +
+      "    departure.city AS departureCity," +
+      "    departure.country_code AS departureCountryCode," +
+      "    departure.country_name AS departureCountryName," +
+      "    departure.latitude AS departureLatitude," +
+      "    departure.longitude AS departureLongitude," +
+      "    arrival.iata AS arrivalIata," +
+      "    arrival.name AS arrivalName," +
+      "    arrival.city AS arrivalCity," +
+      "    arrival.country_code AS arrivalCountryCode," +
+      "    arrival.country_name AS arrivalCountryName," +
+      "    arrival.latitude AS arrivalLatitude," +
+      "    arrival.longitude AS arrivalLongitude," +
+      "    airline.code AS airlineCode," +
+      "    airline.name AS airlineName," +
+      "    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime," +
+      "    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime," +
+      "    miles AS miles," +
+      "    duration AS duration," +
+      "    mileways_url AS milewaysUrl" +
+      "    FROM flight" +
+      "      LEFT JOIN place as departure" +
+      "        ON departure.id = flight.departure_id" +
+      "      LEFT JOIN place as arrival" +
+      "      ON arrival.id = flight.arrival_id" +
+      "      LEFT JOIN airline AS airline" +
+      "        ON airline.id = flight.airline_id" +
+      "    WHERE flight.active = TRUE" +
+      "      AND CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) > CURDATE()" +
+      "    ORDER BY departureTime ASC", nativeQuery = true)
   List<FlightResult> findAllUpcomingFlights();
 
+  /*
   @Query(value= """
     SELECT
     id,
@@ -142,7 +137,6 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
           """, nativeQuery= true)
   FlightResult findFlightById(Long id);
 
-  /*
   @Query(value = "SELECT " +
       "      updated_at AS updatedAt," +
       "      id as id," +

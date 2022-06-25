@@ -7,13 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AirlineRepo extends JpaRepository<Airline, Long> {
 
-    @Query(value = """
-            SELECT id,
-            name,
-            code
-            FROM airline            
-            WHERE code = :code
-            LIMIT 1
-            """, nativeQuery = true)
+    @Query(value = "SELECT id," +
+        "            name," +
+        "            code" +
+        "            FROM airline" +
+        "            WHERE code = :code" +
+        "            LIMIT 1", nativeQuery = true)
     AirlineResult getAirlineByCode(String code);
 }
