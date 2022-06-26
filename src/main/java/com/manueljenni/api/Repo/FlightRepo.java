@@ -72,8 +72,8 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
       "    arrival.longitude AS arrivalLongitude," +
       "    airline.code AS airlineCode," +
       "    airline.name AS airlineName," +
-      "    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime," +
-      "    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime," +
+      "    departure_time AT time zone 'utc' AT time zone departure.time_zone_name AS departureTime," +
+      "    arrival_time AT time zone 'utc' AT time zone arrival.time_zone_name AS arrivalTime," +
       "    miles AS miles," +
       "    duration AS duration," +
       "    mileways_url AS milewaysUrl" +
@@ -108,8 +108,8 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
       "    arrival.longitude AS arrivalLongitude," +
       "    airline.code AS airlineCode," +
       "    airline.name AS airlineName," +
-      "    CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) AS departureTime," +
-      "    CONVERT_TZ(arrival_time, 'UTC', arrival.time_zone_name) AS arrivalTime," +
+      "    departure_time AT time zone 'utc' AT time zone departure.time_zone_name AS departureTime," +
+      "    arrival_time AT time zone 'utc' AT time zone arrival.time_zone_name AS arrivalTime," +
       "    miles AS miles," +
       "    duration AS duration," +
       "    mileways_url AS milewaysUrl" +
