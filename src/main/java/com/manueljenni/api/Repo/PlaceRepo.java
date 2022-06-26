@@ -6,6 +6,7 @@ import com.manueljenni.api.Result.PlaceResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PlaceRepo extends JpaRepository<Place, Long> {
@@ -26,4 +27,8 @@ public interface PlaceRepo extends JpaRepository<Place, Long> {
         "              AND active = TRUE" +
         "            LIMIT 1", nativeQuery = true)
     PlaceResult getAirportIdByIata(String iata);
+
+    @Query(value = "SELECT * from place GROUP BY city"
+            , nativeQuery = true)
+    List<PlaceResult> findAllPlacesUnique();
 }
