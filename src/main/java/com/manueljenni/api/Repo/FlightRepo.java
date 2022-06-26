@@ -3,6 +3,7 @@ package com.manueljenni.api.Repo;
 import com.manueljenni.api.Entity.Flight;
 import com.manueljenni.api.Response.FlightResponse;
 import com.manueljenni.api.Result.FlightResult;
+import com.manueljenni.api.Result.RouteResult;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -124,6 +125,36 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
           "      AND departure_time AT time zone 'UTC' at time zone departure.time_zone_name > CURRENT_DATE" +
       "    ORDER BY departureTime ASC", nativeQuery = true)
   List<FlightResult> findAllUpcomingFlights();
+
+  @Query(value = "SELECT arrival.iata as arrivalIata"
+          + ", departure.iata as departureIata"
+          + ", departure.latitude as departureLatitude"
+          + ", departure.longitude as departureLongitude"
+          + ", arrival.latitude as arrivalLatitude"
+          + ", arrival.longitude as arrivalLongitude"
+          + " from flight"
+          + " LEFT JOIN place as departure"
+          + " ON departure.id = flight.departure_id"
+          + " LEFT JOIN place as arrival"
+          + "   ON arrival.id = flight.arrival_id"
+          + " WHERE arrival.iata < departure.iata"
+          + "   AND flight.departure_time > CURRENT_DATE"
+          + "UNION"
+          + "SELECT arrival.iata as arrivalIata"
+          + "     , departure.iata as departureIata"
+          + "     , departure.latitude as departureLatitude"
+          + "     , departure.longitude as departureLongitude"
+          + "     , arrival.latitude as arrivalLatitude"
+          + "     , arrival.longitude as arrivalLongitude"
+          + "     from flight"
+          + "     LEFT JOIN place as departure"
+          + "       ON departure.id = flight.departure_id"
+          + "     LEFT JOIN place as arrival"
+          + "       ON arrival.id = flight.arrival_id"
+          + " WHERE departure.iata < arrival.iata"
+          + "   AND flight.departure_time > CURRENT_DATE",
+      nativeQuery = true)
+  List<RouteResult> findAllUpcomingRoutes();
 
   /*
   @Query(value= """
