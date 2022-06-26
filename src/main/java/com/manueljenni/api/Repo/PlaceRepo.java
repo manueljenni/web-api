@@ -28,7 +28,7 @@ public interface PlaceRepo extends JpaRepository<Place, Long> {
         "            LIMIT 1", nativeQuery = true)
     PlaceResult getAirportIdByIata(String iata);
 
-    @Query(value = "SELECT * from place GROUP BY id, city"
+    @Query(value = "SELECT country_code AS countryCode, country_name AS countryName, * from place GROUP BY id, city"
             , nativeQuery = true)
     List<PlaceResult> findAllPlacesUnique();
 }
