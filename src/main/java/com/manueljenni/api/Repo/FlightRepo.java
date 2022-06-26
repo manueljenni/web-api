@@ -85,7 +85,7 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
       "      LEFT JOIN airline AS airline" +
       "        ON airline.id = flight.airline_id" +
       "    WHERE flight.active = TRUE" +
-      "      AND CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) < CURDATE()" +
+      "      AND departure_time AT time zone 'UTC' at time zone departure.time_zone_name < CURDATE()" +
       "    ORDER BY departureTime DESC", nativeQuery = true)
   List<FlightResult> findAllPastFlights();
 
@@ -121,7 +121,7 @@ public interface FlightRepo extends JpaRepository<Flight, Long> {
       "      LEFT JOIN airline AS airline" +
       "        ON airline.id = flight.airline_id" +
       "    WHERE flight.active = TRUE" +
-      "      AND CONVERT_TZ(departure_time, 'UTC', departure.time_zone_name) > CURDATE()" +
+          "      AND departure_time AT time zone 'UTC' at time zone departure.time_zone_name > CURDATE()" +
       "    ORDER BY departureTime ASC", nativeQuery = true)
   List<FlightResult> findAllUpcomingFlights();
 
