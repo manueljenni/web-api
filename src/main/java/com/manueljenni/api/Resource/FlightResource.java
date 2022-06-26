@@ -1,6 +1,7 @@
 package com.manueljenni.api.Resource;
 
 import com.manueljenni.api.Response.FlightResponse;
+import com.manueljenni.api.Response.RouteResponse;
 import com.manueljenni.api.Service.FlightService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,18 @@ public class FlightResource {
   public List<FlightResponse> allUpcomingFlights() {
     List<FlightResponse> flights =  flightService.getAllUpcomingFlights();
     return flights;
+  }
+
+  @GetMapping("/getUpcomingRoutes")
+  public List<RouteResponse> upcomingRoutes() {
+    List<RouteResponse> routes =  flightService.getUpcomingRoutes();
+    return routes;
+  }
+
+  @GetMapping("/getPastRoutes")
+  public List<RouteResponse> pastRoutes() {
+    List<RouteResponse> routes =  flightService.getPastRoutes();
+    return routes;
   }
 
   /*

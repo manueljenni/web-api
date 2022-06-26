@@ -2,15 +2,14 @@ package com.manueljenni.api.Service;
 
 import com.manueljenni.api.Entity.Flight;
 import com.manueljenni.api.Repo.FlightRepo;
-import com.manueljenni.api.Response.AirlineResponse;
-import com.manueljenni.api.Response.FlightRequest;
-import com.manueljenni.api.Response.FlightResponse;
-import com.manueljenni.api.Response.PlaceResponse;
+import com.manueljenni.api.Response.*;
 import com.manueljenni.api.Result.FlightResult;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.manueljenni.api.Result.RouteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -153,6 +152,43 @@ public class FlightService {
         })
         .collect(Collectors.toList());
   }
+
+  public List<RouteResponse> getUpcomingRoutes() {
+      List<RouteResult> routes = flightRepo.findUpcomingRoutes();
+
+      return routes.stream()
+          .map(routeResult -> {
+            RouteResponse routeResponse = RouteResponse.builder()
+                .departureIata(routeResult.getDepartureIata())
+                .arrivalIata(routeResult.getArrivalIata())
+                .departureLatitude(routeResult.getDepartureLatitude())
+                .departureLongitude(routeResult.getDepartureLongitude())
+                .arrivalLatitude(routeResult.getArrivalLatitude())
+                .arrivalLongitude(routeResult.getArrivalLongitude())
+                .build();
+        return routeResponse;
+      })
+      .collect(Collectors.toList());
+  }
+
+    public List<RouteResponse> getPastRoutes() {
+        List<RouteResult> routes = flightRepo.findPastRoutes();
+
+        return routes.stream()
+                .map(routeResult -> {
+                    RouteResponse routeResponse = RouteResponse.builder()
+                            .departureIata(routeResult.getDepartureIata())
+                            .arrivalIata(routeResult.getArrivalIata())
+                            .departureLatitude(routeResult.getDepartureLatitude())
+                            .departureLongitude(routeResult.getDepartureLongitude())
+                            .arrivalLatitude(routeResult.getArrivalLatitude())
+                            .arrivalLongitude(routeResult.getArrivalLongitude())
+                            .build();
+                    return routeResponse;
+                })
+                .collect(Collectors.toList());
+    }
+
 /*
   public List<FlightResponse> getAllFlights() {
       List<FlightResult> flights = flightRepo.findAllFlights();
