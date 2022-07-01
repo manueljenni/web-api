@@ -20,7 +20,7 @@ public interface FlightResult {
   String getArrivalCity();
   String getArrivalCountryCode();
   String getArrivalCountryName();
-  String getArrivalLatitude();
+  Float getArrivalLatitude();
   Float getArrivalLongitude();
 
   String getAirlineCode();
