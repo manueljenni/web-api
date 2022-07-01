@@ -13,7 +13,7 @@ public interface FlightResult {
   String getDepartureCountryCode();
   String getDepartureCountryName();
   Float getDepartureLatitude();
-  String getDepartureLongitude();
+  Float getDepartureLongitude();
 
   String getArrivalIata();
   String getArrivalName();
