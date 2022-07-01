@@ -31,7 +31,7 @@ public class PlaceService {
               return PlaceResponse.builder()
                 .type(placeResult.getType())
                       .iata(placeResult.getIata())
-                      .name(placeResult.getIata())
+                      .name(placeResult.getName())
                       .city(placeResult.getCity())
                       .countryCode(placeResult.getCountryCode())
                       .countryName(placeResult.getCountryName())

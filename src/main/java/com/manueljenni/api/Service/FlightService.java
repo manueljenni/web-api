@@ -45,7 +45,7 @@ public class FlightService {
                         .city(flightResult.getArrivalCity())
                         .countryCode(flightResult.getArrivalCountryCode())
                         .countryName(flightResult.getArrivalCountryName())
-                        .latitude(flightResult.getDepartureLatitude())
+                        .latitude(flightResult.getArrivalLatitude())
                         .longitude(flightResult.getArrivalLongitude())
                         .build())
                       .airline(AirlineResponse.builder()
