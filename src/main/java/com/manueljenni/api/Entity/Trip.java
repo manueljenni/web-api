@@ -8,8 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Date;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
